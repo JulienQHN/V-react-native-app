@@ -6,10 +6,55 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { Card, ListItem, Button, Icon, ThemeProvider } from 'react-native-elements';
+import { createStackNavigator } from '@react-navigation/stack'
 
 
 
-function HomeScreen() {
+const MainStack = createStackNavigator();
+const RootStack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function App() {
+  return (
+     
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused
+                ? 'ios-home' : 'ios-home';
+            } else if (route.name === 'Premium') {
+              iconName = focused ? 'ios-star' : 'ios-star-outline';
+            }
+            else if (route.name === 'Tournaments') {
+              iconName = focused ? 'ios-trophy' : 'ios-trophy';
+            }
+            else if (route.name === 'Podium') {
+              iconName = focused ? 'ios-podium' : 'ios-podium';
+            }
+            
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
+            
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        }}
+      >
+      <MainStack.Screen name="Home" component={HomeScreen} />
+      <MainStack.Screen name="Premium" component={PremiumScreen} />
+      <MainStack.Screen name="Tournaments" component={TournamentsScreen} />
+      <MainStack.Screen name="Podium" component={PodiumScreen} />
+      </Tab.Navigator>
+    
+  );
+}
+
+function HomeScreen({ navigation }) {
   return (
     <SafeAreaView>
     <ScrollView>
@@ -24,7 +69,7 @@ function HomeScreen() {
     buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, }}
     title=" Show Me" 
     icon={<FontAwesome5 name='book-reader' color='black' />}
-    onPress={() => NavigationContainer.navigate('MyModal')}
+    onPress={() => navigation.navigate('MyModal')}
     />
 </Card>
 <Card
@@ -57,6 +102,16 @@ function HomeScreen() {
   );
 }
 
+
+function ModalScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text style={{ fontSize: 30 }}>This is a modal!</Text>
+      <Button onPress={() => navigation.goBack()} title="Dismiss" />
+    </View>
+  );
+}
+
 function PremiumScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -81,59 +136,12 @@ function PodiumScreen() {
   );
 }
 
-function ModalScreen({ navigation }) {
+export default function RootStackScreen() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text style={{ fontSize: 30 }}>This is a modal!</Text>
-      <Button onPress={() => navigation.goBack()} title="Dismiss" />
-    </View>
-  );
-}
-
-
-
-
-const Tab = createBottomTabNavigator();
-
-export default function App() {
-  return (
-    <NavigationContainer>  
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === 'Home') {
-              iconName = focused
-                ? 'ios-home';
-            } else if (route.name === 'Premium') {
-              iconName = focused ? 'ios-star' : 'ios-star-outline';
-            }
-            else if (route.name === 'Tournaments') {
-              iconName = focused ? 'ios-trophy' : 'ios-trophy';
-            }
-            else if (route.name === 'Podium') {
-              iconName = focused ? 'ios-podium' : 'ios-podium';
-            }
-            
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
-            
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'tomato',
-          inactiveTintColor: 'gray',
-        }}
-      >
-        
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Podium" component={PodiumScreen} />
-        <Tab.Screen name="Tournaments" component={TournamentsScreen} />
-        <Tab.Screen name="Premium" component={PremiumScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
-
-    
-  );
+    <NavigationContainer> 
+    <RootStack.Navigator mode="modal">
+      <RootStack.Screen name="Main" component={App}/>
+      <RootStack.Screen name="MyModal" component={ModalScreen} />
+    </RootStack.Navigator>
+    </NavigationContainer> );
 }
