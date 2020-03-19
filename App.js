@@ -105,8 +105,7 @@ export default function App() {
 
             if (route.name === 'Home') {
               iconName = focused
-                ? 'ios-home'
-                : 'ios-home';
+                ? 'ios-home';
             } else if (route.name === 'Premium') {
               iconName = focused ? 'ios-star' : 'ios-star-outline';
             }
