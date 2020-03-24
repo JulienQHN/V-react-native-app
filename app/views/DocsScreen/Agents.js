@@ -1,8 +1,19 @@
 import * as React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  SafeAreaView
+} from "react-native";
+
+import { createStackNavigator } from "@react-navigation/stack";
+
 import { ListItem } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 
+const MainStack = createStackNavigator();
 export function Agents() {
   const navigation = useNavigation();
 
@@ -31,9 +42,11 @@ export function Agents() {
 
 export function Julien() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Premium!</Text>
-    </View>
+    <MainStack.Screen name="Julien">
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Premium!</Text>
+      </View>
+    </MainStack.Screen>
   );
 }
 
