@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { Component } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,33 +9,50 @@ import {
 } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
-
 import { ListItem } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 
 const MainStack = createStackNavigator();
+
 export function Agents() {
+  // goToOtherScreen(ScreenName) {
+  // this.props.navigation.navigate(ScreenName);
+  //}
   const navigation = useNavigation();
+  const list = [
+    {
+      title: "Map 1",
+      icon: "av-timer",
+      avatar_url: "../assets/images/valorant.jpg",
+      ScreenName: "MyModal1"
+    },
+    {
+      title: "Map 2",
+      icon: "av-timer",
+      avatar_url: "../assets/images/valorant.jpg",
+      ScreenName: "MyModal2"
+    },
+    {
+      title: "Map 3",
+      icon: "av-timer",
+      avatar_url: "../assets/images/valorant.jpg",
+      ScreenName: "MyModal3"
+    }
+  ];
 
   return (
     <View>
-      <ListItem
-        title="Limited supply! Its like digital gold!"
-        //Can be useful for new Content
-
-        subtitle={
-          <View style={styles.subtitleView}>
-            <Image
-              source={require("../../assets/images/valorant.jpg")}
-              style={styles.ratingImage}
-            />
-            <Text style={styles.ratingText}>J'aime le miel</Text>
-          </View>
-        }
-        leftAvatar={{ source: require("../../assets/images/valorant.jpg") }}
-        onPress={() => navigation.navigate(Julien)}
-        title="Dismiss"
-      />
+      {list.map((item, i) => (
+        <ListItem
+          key={i}
+          title={item.title}
+          leftIcon={{ name: item.icon }}
+          onPress={() => navigation.navigate(item.ScreenName)}
+          leftAvatar={{ source: { uri: item.avatar_url } }}
+          bottomDivider
+          chevron
+        />
+      ))}
     </View>
   );
 }

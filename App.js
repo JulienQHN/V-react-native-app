@@ -52,16 +52,16 @@ export default function Root() {
             options={({ route }) => ({
               title: getHeaderTitle(route),
               headerShown: shouldHeaderBeShown(route),
-              headerTitleAlign: "center",
-              ...TransitionPresets.ModalSlideFromRightIOS
+              headerTitleAlign: "center"
             })}
             name="Home"
             component={App}
           />
-          <Stack.Screen name="MyModal" component={ModalScreen1} />
+          <Stack.Screen name="MyModal1" component={ModalScreen1} />
           <Stack.Screen name="MyModal2" component={ModalScreen2} />
           <Stack.Screen name="MyModal3" component={ModalScreen3} />
           <Stack.Screen name="MyModal4" component={ModalScreen4} />
+          <Stack.Screen name="MyModal5" component={ModalScreen4} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

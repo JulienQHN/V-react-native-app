@@ -2,7 +2,7 @@ import * as React from "react";
 import TouchableScale from "react-native-touchable-scale";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { ListItem } from "react-native-elements";
-import { Agents, Julien } from "./DocsScreen/Agents";
+import { Agents } from "./DocsScreen/Agents";
 
 export function DocScreen({ navigation }) {
   return <Agents />;

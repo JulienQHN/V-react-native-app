@@ -1,22 +1,31 @@
 import * as React from "react";
 import { Text, View } from "react-native";
 import { Button } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
+import { ListItem } from "react-native-elements";
 
-export function ModalScreen({ navigation }) {
+export function ModalScreen1() {
+  const navigation = useNavigation();
+  const list = [
+    {
+      title: "Map 5",
+      icon: "av-timer",
+      ScreenName: "MyModal5"
+    }
+  ];
   return (
-    <React.Fragment>
-      <Stack.Navigator>
-        <ModalScreen1 />
-      </Stack.Navigator>
-    </React.Fragment>
-  );
-}
-
-export function ModalScreen1({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text style={{ fontSize: 30 }}>This is a modal!</Text>
-      <Button onPress={() => navigation.goBack()} title="Dismiss" />
+    <View>
+      {list.map((item, i) => (
+        <ListItem
+          key={i}
+          title={item.title}
+          leftIcon={{ name: item.icon }}
+          onPress={() => navigation.navigate(item.ScreenName)}
+          leftAvatar={{ source: { uri: item.avatar_url } }}
+          bottomDivider
+          chevron
+        />
+      ))}
     </View>
   );
 }

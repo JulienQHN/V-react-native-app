@@ -25,7 +25,7 @@ export function HomeScreen({ navigation }) {
               }}
               title=" Show Me"
               icon={<FontAwesome5 name="book-reader" color="black" />}
-              onPress={() => navigation.navigate("MyModal")}
+              onPress={() => navigation.navigate("MyModal1")}
             />
           </Card>
           <Card
